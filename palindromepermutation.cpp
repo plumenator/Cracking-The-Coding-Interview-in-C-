@@ -13,7 +13,6 @@
 
 bool isPalindromePermutation(const std::string& text) {
   std::map<char, int> counts;
-  int length = 0;
   for (auto c: text) {
     if (!std::isalnum(c)) {
       continue;
@@ -25,14 +24,11 @@ bool isPalindromePermutation(const std::string& text) {
     } else {
       ++it->second;
     }
-    ++length;
   }
-  bool length_odd = length % 2 == 1;
-
   int rem_sum = std::accumulate(counts.begin(), counts.end(), 0, [] (int sofar, const auto& c) {
     return sofar + (c.second % 2);
   });
-  return (rem_sum == 1 && length_odd) || (rem_sum == 0 && !length_odd);
+  return rem_sum == 1 || rem_sum == 0;
 }
 
 int main() {     
